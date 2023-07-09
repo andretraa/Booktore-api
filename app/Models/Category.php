@@ -14,4 +14,9 @@ class Category extends Model
         'status',
         'image',
     ];
+
+    public function books()
+    {
+        return $this->belongsToMany(Book::class, 'book_category');
+    }
 }

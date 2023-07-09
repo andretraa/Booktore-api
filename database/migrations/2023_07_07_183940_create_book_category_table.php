@@ -14,10 +14,14 @@ class CreateBookCategoryTable extends Migration
     public function up()
     {
         Schema::create('book_category', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('book_id');
-            $table->integer('category_id');
+            $table->unsignedInteger('book_id');
+            $table->unsignedInteger('category_id');
+            // Additional columns specific to the relationship
             $table->timestamps();
+
+            // Define foreign keys
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Resources\Categories as CategoryResourceCollection;
+use App\Http\Resources\Category as CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -92,5 +93,10 @@ class CategoryController extends Controller
         
         return new CategoryResourceCollection($criteria);
 
+    }
+
+    public function slug($slug) {
+        $criteria = Category::where('slug', $slug)->first();
+        return new CategoryResource($criteria);
     }
 }
