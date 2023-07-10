@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Http\Resource\Book as BookResource;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,11 @@ use App\Http\Controllers\CategoryController;
 
 
 Route::prefix('v1')->group(function (){
-    
+
+    Route::post('register', [AuthController::class, 'register'])->name('register');
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
     Route::get('books', [BookController::class, 'index']);
     Route::get('books/{id}', [BookController::class, 'show']);
     Route::get('books/top/{count}', [BookController::class, 'top']);
