@@ -8,6 +8,7 @@ use App\Http\Resource\Book as BookResource;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,17 @@ use App\Http\Controllers\AuthController;
 */
 
 
+
 Route::prefix('v1')->group(function (){
 
     Route::post('register', [AuthController::class, 'register'])->name('register');
     Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout',[AuthController::class,'logout']);
+        Route::post('shipping', [ShopController::class, 'shipping']);
+        Route::post('services', [ShopController::class, 'services']);
+    });
 
     Route::get('books', [BookController::class, 'index']);
     Route::get('books/{id}', [BookController::class, 'show']);
@@ -36,4 +43,8 @@ Route::prefix('v1')->group(function (){
     Route::get('categories', [CategoryController::class, 'index']);
     Route::get('categories/random/{count}', [CategoryController::class, 'random']);
     Route::get('categories/slug/{slug}', [CategoryController::class, 'slug']);
+
+    Route::get('provinces', [ShopController::class, 'provinces']);
+    Route::get('cities', [ShopController::class, 'cities']);
+    Route::get('couriers', [ShopController::class, 'couriers']);
 });

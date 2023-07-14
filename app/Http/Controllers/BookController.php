@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Book;
 use App\Http\Resources\Book as BookResourceCollection;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Books as BookResource;
 
 class BookController extends Controller
